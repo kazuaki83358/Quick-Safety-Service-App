@@ -28,16 +28,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.quicksafetyservice.R
+import com.example.quicksafetyservice.components.AppBottomBar
 import com.example.quicksafetyservice.ui.theme.DarkIconColor
 import com.example.quicksafetyservice.ui.theme.DarkNavy
 import com.example.quicksafetyservice.ui.theme.LightSurface
 import com.example.quicksafetyservice.ui.theme.SoftBlueGradientEnd
 import com.example.quicksafetyservice.ui.theme.SoftBlueGradientStart
 
-// Data Classes
+// Data Classes (BottomNavItem moved to AppBottomBar.kt)
 data class Service(val name: String, val iconRes: Int)
 data class Stat(val title: String, val value: String, val iconRes: Int)
-data class BottomNavItem(val title: String, val iconRes: Int, val route: String)
 
 // Lists
 val services = listOf(
@@ -54,19 +54,20 @@ val stats = listOf(
     Stat("Workers", "500+", R.drawable.people),
 )
 
-val bottomNavItems = listOf(
-    BottomNavItem("Home", R.drawable.home, "home"),
-    BottomNavItem("Apply", R.drawable.apply, "apply"),
-    BottomNavItem("Status", R.drawable.calendar, "status"),
-    BottomNavItem("Profile", R.drawable.profile, "profile"),
-)
-
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onNavigate: (String) -> Unit // Added navigation parameter
+) {
     val scrollState = rememberScrollState()
 
     Scaffold(
-        bottomBar = { AppBottomBar() },
+        bottomBar = {
+            // Connected AppBottomBar
+            AppBottomBar(
+                currentRoute = "home",
+                onNavigate = onNavigate
+            )
+        },
         containerColor = LightSurface
     ) { paddingValues ->
         // Everything is now inside this single Column that scrolls
@@ -268,6 +269,7 @@ fun ServiceItem(service: Service) {
         }
     }
 }
+
 @Composable
 fun StatCard(stat: Stat, modifier: Modifier = Modifier) {
     Card(modifier = modifier.height(160.dp), // Increased height slightly to fit everything comfortably
@@ -323,39 +325,8 @@ fun StatCard(stat: Stat, modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-fun AppBottomBar() {
-    NavigationBar(
-        containerColor = Color.White,
-        tonalElevation = 8.dp
-    ) {
-        bottomNavItems.forEachIndexed { index, item ->
-            val isSelected = index == 0
-            NavigationBarItem(
-                selected = isSelected,
-                onClick = { /* Handle navigation */ },
-                icon = {
-                    Icon(
-                        painter = painterResource(id = item.iconRes),
-                        contentDescription = item.title,
-                        tint = if (isSelected) DarkNavy else Color.Gray,
-                        modifier = Modifier.size(24.dp)
-                    )
-                },
-                label = {
-                    Text(
-                        item.title,
-                        style = MaterialTheme.typography.labelMedium,
-                        color = if (isSelected) DarkNavy else Color.Gray
-                    )
-                }
-            )
-        }
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewHomeScreen() {
-    HomeScreen()
+    HomeScreen(onNavigate = {})
 }

@@ -26,6 +26,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import com.example.quicksafetyservice.R
 import com.example.quicksafetyservice.ui.theme.DarkNavy
@@ -33,7 +35,9 @@ import com.example.quicksafetyservice.ui.theme.LightBlueAccent
 import com.example.quicksafetyservice.ui.theme.ScreenBackground
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    onLoginSuccess: () -> Unit = {} // Added callback for navigation
+) {
     var phoneNumber by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -105,7 +109,11 @@ fun LoginScreen() {
 
                 // 5. Login Button (Primary)
                 Button(
-                    onClick = { /* Handle Login */ },
+                    onClick = {
+                        // TODO: Add real authentication logic here (e.g., check Firebase/API)
+                        // For now, we simulate success and navigate
+                        onLoginSuccess()
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
@@ -120,7 +128,7 @@ fun LoginScreen() {
 
                 // 6. Create Account Button (Secondary/Outlined)
                 OutlinedButton(
-                    onClick = { /* Handle Create Account */ },
+                    onClick = { /* Handle Create Account Navigation */ },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
@@ -146,6 +154,7 @@ fun LoginScreen() {
         }
     }
 }
+
 @Composable
 fun InputField(
     value: String,
@@ -178,5 +187,5 @@ fun InputField(
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginScreen() {
-    LoginScreen()
+    LoginScreen(onLoginSuccess = {})
 }
