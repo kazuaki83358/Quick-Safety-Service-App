@@ -5,13 +5,13 @@ The app connects with a Flask/Supabase backend and provides a clean, fast, and e
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
-### **Main Screen**
-![Main Screen](images/image1.jpg)
+### Login Screen
+<img src="images/image1.jpg" width="300"/>
 
-### **Details Screen**
-![Details Screen](images/image2.jpg)
+### Home Screen
+<img src="images/image2.jpg" width="300"/>
 
 ---
 
