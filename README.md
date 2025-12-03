@@ -1,31 +1,62 @@
-# Project Title
+# Quick Safety Service App
 
-Short one-line description of the project.
+A modern Android application built with **Kotlin + Jetpack Compose** for managing service bookings and worker applications for the Quick Safety Service platform.  
+The app connects with a Flask/Supabase backend and provides a clean, fast, and easy-to-use interface.
 
-## Screenshots
+---
 
-![Screenshot 1 - main screen](images/screenshot1.png)
+## 📸 Screenshots
 
-_Figure 1: Main screen showing core UI._
+### **Main Screen**
+![Main Screen](images/image1.jpg)
 
-![Screenshot 2 - details screen](images/screenshot2.png)
+### **Details Screen**
+![Details Screen](images/image2.jpg)
 
-_Figure 2: Details / secondary screen._
+---
 
-## Features
+## 🚀 Features
 
-- Feature A
-- Feature B
-- Feature C
+- Clean UI built with **Jetpack Compose**
+- User-friendly booking flow
+- Worker application form
+- API integration with Flask/Supabase backend
+- Secure authentication (optional)
+- Modern Android architecture using:
+  - ViewModel
+  - StateFlow
+  - Repository pattern
 
-## Installation
+---
 
-1. Clone the repo:
-git clone <repo-url>
-2. Put screenshots in `images` folder:
-   - `images/image1.jpg`
-   - `images/image2.jpg`
+## 📦 Installation & Setup
 
-3. Build and run (Android Studio / Gradle):
+### 1️⃣ Clone the repository
 
+```bash
+git clone https://github.com/kazuaki83358/Quick-Safety-Service-App.git
+cd Quick-Safety-Service-App
+
+### 2️⃣ screenshots
+/images
+   ├── image1.jpg
+   └── image2.jpg
+
+### 3️⃣ Open project
+Open the folder in Android Studio (Giraffe or later).   
+
+### 4️⃣ Build & Run
+## Using Gradle:
 ./gradlew assembleDebug
+
+
+### 🧩 Project Structure
+app/
+  ├── data/          # API services + repository
+  ├── ui/            # Jetpack Compose screens
+  ├── viewmodel/     # State management
+  └── utils/         # Helpers & constants
+
+images/
+  ├── image1.jpg
+  └── image2.jpg
