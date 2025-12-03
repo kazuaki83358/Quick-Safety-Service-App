@@ -3,8 +3,11 @@ package com.example.quicksafetyservice.screen
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Phone
@@ -14,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -22,12 +24,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import com.example.quicksafetyservice.R
 import com.example.quicksafetyservice.ui.theme.DarkNavy
@@ -36,7 +33,8 @@ import com.example.quicksafetyservice.ui.theme.ScreenBackground
 
 @Composable
 fun LoginScreen(
-    onLoginSuccess: () -> Unit = {} // Added callback for navigation
+    onLoginSuccess: () -> Unit = {},
+    onCreateAccountClick: () -> Unit = {} // Added callback for Create Account
 ) {
     var phoneNumber by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -62,9 +60,10 @@ fun LoginScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 24.dp)
-                    .padding(vertical = 48.dp),
+                    .verticalScroll(rememberScrollState()), // Added for smaller screens
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Spacer(modifier = Modifier.height(48.dp))
                 // 1. Logo
                 Image(
                     painter = painterResource(id = R.drawable.logo),
@@ -109,11 +108,7 @@ fun LoginScreen(
 
                 // 5. Login Button (Primary)
                 Button(
-                    onClick = {
-                        // TODO: Add real authentication logic here (e.g., check Firebase/API)
-                        // For now, we simulate success and navigate
-                        onLoginSuccess()
-                    },
+                    onClick = onLoginSuccess, // Use callback
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
@@ -128,7 +123,7 @@ fun LoginScreen(
 
                 // 6. Create Account Button (Secondary/Outlined)
                 OutlinedButton(
-                    onClick = { /* Handle Create Account Navigation */ },
+                    onClick = onCreateAccountClick, // Use callback
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
@@ -187,5 +182,5 @@ fun InputField(
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginScreen() {
-    LoginScreen(onLoginSuccess = {})
+    LoginScreen(onLoginSuccess = {}, onCreateAccountClick = {})
 }
