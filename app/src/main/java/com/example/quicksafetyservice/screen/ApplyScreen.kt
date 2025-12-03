@@ -1,5 +1,6 @@
 package com.example.quicksafetyservice.screen
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -39,6 +40,7 @@ import com.example.quicksafetyservice.ui.theme.LightSurface
 fun ApplyScreen(
     onNavigate: (String) -> Unit // Navigation callback
 ) {
+    BackHandler(onBack = { onNavigate("home") })
     // Define the options for the dropdowns
     val serviceOptions = listOf(
         "Security Guard",
